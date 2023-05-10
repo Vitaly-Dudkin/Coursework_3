@@ -41,4 +41,36 @@ def get_description_operation(operation):
     return operation['description']
 
 
+def get_from_operation(operation):
+    """
+        Функция зашифровывает номер карты или счета отправителя
+        :return: возращает зашифровынный номер карты или счета отправителя
+        """
+    if 'from' not in operation:
+        secret_numbers = 'There is no information'
+    else:
+        if 'Счет' in operation['from']:
+            numbers = operation['from'][-4:]
+            numbers = '**' + numbers
+            secret_numbers = operation['from'][:-20] + numbers
+        else:
+            only_numbers = operation['from'][-16:]
+            coding_numbers = only_numbers[:4] + ' ' + only_numbers[4:6] + '** **** ' + only_numbers[-4:]
+            secret_numbers = operation['from'][:-16] + coding_numbers
+    return secret_numbers + ' -->'
 
+
+def get_to_operation(operation):
+    """
+        Функция зашифровывает номер карты или номер счета получателя
+        :return: печатает зашифровынные карты или номер счета получателя
+    """
+    if 'Счет' in operation['to']:
+        numbers = operation['to'][-4:]
+        numbers = '**' + numbers
+        secret_numbers = operation['to'][:-20] + numbers
+    else:
+        only_numbers = operation['from'][-16:]
+        coding_numbers = only_numbers[:4] + ' ' + only_numbers[4:6] + '** **** ' + only_numbers[-4:]
+        secret_numbers = operation['from'][:-16] + coding_numbers
+    return secret_numbers
