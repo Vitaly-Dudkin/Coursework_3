@@ -74,3 +74,21 @@ def get_to_operation(operation):
         coding_numbers = only_numbers[:4] + ' ' + only_numbers[4:6] + '** **** ' + only_numbers[-4:]
         secret_numbers = operation['from'][:-16] + coding_numbers
     return secret_numbers
+
+
+def get_amount(operation):
+    """
+    Функция получает сумму операции
+    :return: возращает сумму операции
+    """
+    amount = operation['operationAmount']['amount']
+    return f'\033[31m{amount}\033[0m'
+
+
+def get_currency(operation):
+    """
+    Функция получает валюту операции
+    :return: возращает валюту операции
+    """
+    currency = operation['operationAmount']['currency']['name']
+    return currency
