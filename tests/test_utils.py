@@ -48,3 +48,12 @@ def test_get_to_operation_account(operation):
 
 def test_get_to_operation(operation):
     assert get_to_operation(operation) == 'Visa Classic 8906 17** **** 3215'
+
+
+def test_get_amount(operation):
+    operation['operationAmount']['amount'] = '34353.3'
+    assert get_amount(operation) == '\x1b[31m34353.3\x1b[0m'
+
+
+def test_get_currency(operation):
+    assert len(get_currency(operation)) == 3
