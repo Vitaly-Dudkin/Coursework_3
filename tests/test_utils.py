@@ -55,5 +55,15 @@ def test_get_amount(operation):
     assert get_amount(operation) == '\x1b[31m34353.3\x1b[0m'
 
 
+def test_get_amount_incorrect(operation):
+    operation['operationAmount']['amount'] = '343r53.3'
+    assert get_amount(operation) == '\x1b[31mValueError: Incorrect amount\x1b[0m'
+
+
 def test_get_currency(operation):
     assert len(get_currency(operation)) == 3
+
+
+def test_get_currency_incorrect(operation):
+    operation['operationAmount']['currency']['name'] = 'U3D'
+    assert get_currency(operation) == "Unknow currency"
