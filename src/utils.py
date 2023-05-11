@@ -81,7 +81,15 @@ def get_amount(operation):
     Функция получает сумму операции
     :return: возращает сумму операции
     """
+    # получаем сумму операции
     amount = operation['operationAmount']['amount']
+    # пробегаем по значению
+    for num in amount:
+        #  проверяем есть ли буквы в значении
+        if num.isalpha():
+            # если есть буквы то выводим ошибку
+            return f'\033[31mValueError: Incorrect amount\033[0m'
+    # если букв в сумме нет, выводим результат
     return f'\033[31m{amount}\033[0m'
 
 
@@ -91,4 +99,11 @@ def get_currency(operation):
     :return: возращает валюту операции
     """
     currency = operation['operationAmount']['currency']['name']
+    # пробегаем по валюте
+    for letter in currency:
+        # проверем каждый символ на цмфру
+        if letter.isdigit():
+            # если цифра есть выводим сообщение
+            return "Unknow currency"
+    # если цифр нет выводим валюту
     return currency
