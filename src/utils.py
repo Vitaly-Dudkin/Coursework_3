@@ -1,10 +1,14 @@
 # импортируем json чтобы работать с json файлом
 import json
+import os.path
 # импортируем datetime чтобы отформатировать время в функции get_date_operation()
 from datetime import datetime
 
+PATH_TO_DATA = os.path.abspath('../data')
+PATH_TO_OPERATION_DATA = os.path.join(PATH_TO_DATA, 'clients_operations.json')
 
-def load_clients_operations(path):
+
+def load_clients_operations(path=PATH_TO_OPERATION_DATA):
     """
        Функуия загружает информацию из файла clients_operations.json
        :return: отсортированный по дате и статусу банковской операции список словарей
@@ -81,7 +85,15 @@ def get_amount(operation):
     Функция получает сумму операции
     :return: возращает сумму операции
     """
+    # получаем сумму операции
     amount = operation['operationAmount']['amount']
+    # пробегаем по значению
+    for num in amount:
+        #  проверяем есть ли буквы в значении
+        if num.isalpha():
+            # если есть буквы то выводим ошибку
+            return f'\033[31mValueError: Incorrect amount\033[0m'
+    # если букв в сумме нет, выводим результат
     return f'\033[31m{amount}\033[0m'
 
 
@@ -91,4 +103,11 @@ def get_currency(operation):
     :return: возращает валюту операции
     """
     currency = operation['operationAmount']['currency']['name']
+    # пробегаем по валюте
+    for letter in currency:
+        # проверем каждый символ на цмфру
+        if letter.isdigit():
+            # если цифра есть выводим сообщение
+            return "Unknow currency"
+    # если цифр нет выводим валюту
     return currency
