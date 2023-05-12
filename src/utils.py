@@ -1,10 +1,14 @@
 # импортируем json чтобы работать с json файлом
 import json
+import os.path
 # импортируем datetime чтобы отформатировать время в функции get_date_operation()
 from datetime import datetime
 
+PATH_TO_DATA = os.path.abspath('../data')
+PATH_TO_OPERATION_DATA = os.path.join(PATH_TO_DATA, 'clients_operations.json')
 
-def load_clients_operations(path):
+
+def load_clients_operations(path=PATH_TO_OPERATION_DATA):
     """
        Функуия загружает информацию из файла clients_operations.json
        :return: отсортированный по дате и статусу банковской операции список словарей

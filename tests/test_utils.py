@@ -4,14 +4,12 @@ import pytest
 
 @pytest.fixture
 def operation():
-    path = '/home/vitaly/Coursework_3/src/clients_operations.json'
-    operation = load_clients_operations(path)[-1]
+    operation = load_clients_operations()[-1]
     return operation
 
 
 def test_load_clients_operation():
-    path = '/home/vitaly/Coursework_3/src/clients_operations.json'
-    assert type(load_clients_operations(path)) == list
+    assert type(load_clients_operations()) == list
 
 
 def test_get_date_operation(operation):
